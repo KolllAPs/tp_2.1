@@ -1,15 +1,16 @@
 #pragma once
-
 #include"characters.h"
 
-class hero : characters {
+class hero : public characters {
+	const int id_ = 1;
 	std::string weaponType;
 	std::string baseAttack;
 	std::string powerAttack;
 	std::string ultimateAttack;
 
+public:
 	hero();
-	hero(std::string, std::string, std::string, std::string);
+	hero(std::string, std::string, std::string, std::string, std::string);
 	hero(const hero&);
 	~hero();
 
@@ -23,7 +24,7 @@ class hero : characters {
 	std::string getPowerAttack();
 	std::string getUltimateAttack();
 
-	virtual void someFunction();
+	std::string info();
 };
 
 

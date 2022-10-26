@@ -3,11 +3,13 @@
 #include"characters.h"
 
 
-class monster : characters {
+class monster : public characters {
+	const int id_ = 3;
 	std::string appearane;
 
+public:
 	monster();
-	monster(std::string);
+	monster(std::string, std::string);
 	monster(const monster&);
 	~monster();
 
@@ -15,6 +17,6 @@ class monster : characters {
 
 	std::string getAppearance();
 
-	virtual void someFunction();
+	virtual std::string info();
 
 };

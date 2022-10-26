@@ -19,6 +19,3 @@ std::string characters::getName() {
 	return this->name;
 }
 
-void characters::someFunction() {
-	std::cout << "i do smthg" << std::endl;
-}

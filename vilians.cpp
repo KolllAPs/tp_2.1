@@ -3,8 +3,10 @@
 
 villian::villian():weaponType(""), baseAttack(""), powerAttack(""), crime(""), location(""){}
 
-villian::villian(std::string wt, std::string ba, std::string pa, std::string c, std::string l):
-	weaponType(wt), baseAttack(ba), powerAttack(pa), crime(c), location(l){}
+villian::villian(std::string n, std::string wt, std::string ba, std::string pa, std::string c, std::string l):
+	weaponType(wt), baseAttack(ba), powerAttack(pa), crime(c), location(l) {
+	this->name = n;
+}
 
 villian::villian(const villian& _villian) {
 	this->weaponType = _villian.weaponType;
@@ -56,6 +58,9 @@ std::string villian::getLocation() {
 	return this->location;
 }
 
-void villian::someFunction() {
-	std::cout << "i do something three" << std::endl;
+std::string villian::info() {
+	std::string info;
+	info = std::to_string(id_) + "\n" + getName() + "\n" + getWeaponType() + "\n" + getCrime() + "\n" +
+		getLocation() + "\n" + getbaseAttack() + "\n" + getPowerAttack() + "n";
+	return info;
 }

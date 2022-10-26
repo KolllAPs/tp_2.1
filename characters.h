@@ -12,6 +12,6 @@ public:
 	~characters();
 	void setName();
 	std::string getName();
-	virtual void someFunction();
+	virtual std::string info() = 0;
 };
 

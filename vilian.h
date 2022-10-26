@@ -2,15 +2,17 @@
 
 #include"characters.h"
 
-class villian : characters {
+class villian : public characters {
+	const int id_ = 2;
 	std::string weaponType;
 	std::string baseAttack;
 	std::string powerAttack;
 	std::string crime;
 	std::string location;
 
+public:
 	villian();
-	villian(std::string, std::string, std::string, std::string, std::string);
+	villian(std::string, std::string, std::string, std::string, std::string, std::string);
 	villian(const villian&);
 	~villian();
 
@@ -26,5 +28,5 @@ class villian : characters {
 	std::string getCrime();
 	std::string getLocation();
 
-	virtual void someFunction();
+	std::string info();
 };

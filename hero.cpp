@@ -3,8 +3,10 @@
 
 hero::hero(): weaponType(""), baseAttack(""), powerAttack(""), ultimateAttack(""){}
 
-hero::hero(std::string wt, std::string ba, std::string pa, std::string ua) : weaponType(wt),
-baseAttack(ba), powerAttack(pa), ultimateAttack(ua){}
+hero::hero(std::string n, std::string wt, std::string ba, std::string pa, std::string ua) : weaponType(wt),
+baseAttack(ba), powerAttack(pa), ultimateAttack(ua) {
+	this->name = n;
+}
 
 hero::hero(const hero& _hero) {
 	this->weaponType = _hero.weaponType;
@@ -47,6 +49,9 @@ std::string hero::getUltimateAttack() {
 	return this->ultimateAttack;
 }
 
-void hero::someFunction() {
-	std::cout << "i do something too" << std::endl;
+std::string hero::info() {
+	std::string info;
+	info = std::to_string(id_) + "\n" + getName() + "\n" + getWeaponType() + "\n"
+		+ getBaseAttack() + "\n" + getBaseAttack() + "\n" + getUltimateAttack() + "\n";
+	return info;
 }
