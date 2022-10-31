@@ -130,15 +130,19 @@
     <ClCompile Include="characters.cpp" />
     <ClCompile Include="hero.cpp" />
     <ClCompile Include="keeper.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="monster.cpp" />
-    <ClCompile Include="vilians.cpp" />
+    <ClCompile Include="villain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="characters.h" />
     <ClInclude Include="hero.h" />
     <ClInclude Include="keeper.h" />
     <ClInclude Include="monster.h" />
-    <ClInclude Include="vilian.h" />
+    <ClInclude Include="villain.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Source.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

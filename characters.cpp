@@ -1,21 +1,25 @@
 #include<iostream>
 #include"characters.h"
 
-characters::characters(): name("") {}
+Ñharacters::Ñharacters(): name("") {}
 
-characters::characters(std::string _name): name(_name) {}
+Ñharacters::Ñharacters(std::string _name): name(_name) {}
 
-characters::characters(const characters& _characters) {
+Ñharacters::Ñharacters(const Ñharacters& _characters) {
 	this->name = _characters.name;
 }
 
-characters::~characters(){}
+Ñharacters::~Ñharacters(){
+	std::cout << "Characters del" << std::endl;
+}
 
-void characters::setName() {
+void Ñharacters::setName() {
+	std::cout << "Input name" << std::endl;
+	std::cin.ignore();
 	std::getline(std::cin, this->name);
 }
 
-std::string characters::getName() {
+std::string Ñharacters::getName() {
 	return this->name;
 }
 

@@ -3,7 +3,7 @@
 #include"keeper.h"
 #include "characters.h"
 #include "hero.h"
-#include "vilian.h"
+#include "villain.h"
 #include "monster.h"
 
 using namespace std;
@@ -11,7 +11,7 @@ using namespace std;
 Keeper::Keeper(): maxSize(0), currentSize(0), container(NULL){}
 
 Keeper::Keeper(int _maxSize, int _currentSize) : maxSize(_maxSize),
-currentSize(_currentSize), container(new characters* [_maxSize]) {}
+currentSize(_currentSize), container(new Ñharacters* [_maxSize]) {}
 
 Keeper::Keeper(const Keeper& keeper) {
 	this->maxSize = keeper.maxSize;
@@ -20,18 +20,19 @@ Keeper::Keeper(const Keeper& keeper) {
 }
 
 Keeper::~Keeper() {
+	if (container == NULL)
+		return;
 	for (int i = 0; i < currentSize; i++) {
 		delete container[i];
 	}
 	delete[] container;
-	maxSize = 0;
-	currentSize = 0;
+
 }
 
-void Keeper::push(characters& character) {
+void Keeper::push(Ñharacters& character) {
 	if (maxSize == currentSize) {
 		maxSize++;
-		characters** tempContainer = new characters * [maxSize];
+		Ñharacters** tempContainer = new Ñharacters * [maxSize];
 		for (int i = 0; i < currentSize; i++) {
 			tempContainer[i] = container[i];
 		}
@@ -47,23 +48,30 @@ void Keeper::push(characters& character) {
 }
 
 void Keeper::pop() {
-	if (!currentSize)
-		return;
-	delete container[currentSize - 1];
-	currentSize--;
+	if (currentSize == 0)
+		throw exception("There is nothing to delete");
+		string name = container[currentSize-1]->getName();
+		delete container[currentSize-1];
+		currentSize--;
+		std::cout << "Character " << name << " was removed" << std::endl;
 }
 
 void Keeper::popByNumber(int del_id) {
 	del_id--;
+	if (del_id<0 || del_id>currentSize)
+		throw exception("Out of range");
 
-	characters** tmp = new characters * [maxSize];
-	for (int i = 0, j = 0; j < currentSize; i++, j++) {
-		if (del_id == i)
-			j++;
-		tmp[i] = container[j];
-	}
-	container = tmp;
-	currentSize -= 1;
+		string name = container[del_id]->getName();
+		Ñharacters** tmp = new Ñharacters * [maxSize];
+		for (int i = 0, j = 0; j < currentSize; i++, j++) {
+			if (del_id == i)
+				j++;
+			tmp[i] = container[j];
+		}
+		container = tmp;
+		currentSize -= 1;
+		std::cout << "Character " << name << " was removed" << std::endl;
+	
 }
 
 void Keeper::saveToFile(std::string pth) {
@@ -72,6 +80,7 @@ void Keeper::saveToFile(std::string pth) {
 	for (int i = 0; i < currentSize; i++)
 		f << container[i]->info();
 	f.close();
+	std::cout << "Container was saved to file" << std::endl;
 }
 
 void Keeper::getFromFile(std::string pth) {
@@ -87,39 +96,41 @@ void Keeper::getFromFile(std::string pth) {
 	if (!f.is_open())
 		return;
 	int curSz;
-	int id_;
+	int charType;
 	f >> curSz;
-	characters* buf = NULL;
+	Ñharacters* buf = NULL;
 	for (int i = 0; i < curSz; i++) {
-		f >> id_;
-		switch (id_) {
+		f >> charType;
+		switch (charType) {
 		case 1: //hero
 			f.ignore(); getline(f, name);
-			f.ignore(); getline(f, typeWeapon);
-			f.ignore(); getline(f, baseAttack);
-			f.ignore(); getline(f, powerAttack);
-			f.ignore(); getline(f, ultimateAttack);
-			buf = new hero(name, typeWeapon, baseAttack, powerAttack, ultimateAttack);
+			getline(f, typeWeapon);
+			getline(f, baseAttack);
+			getline(f, powerAttack);
+			getline(f, ultimateAttack);
+			buf = new Hero(name, typeWeapon, baseAttack, powerAttack, ultimateAttack);
 			break;
 		case 2:
 			f.ignore(); getline(f, name);
-			f.ignore(); getline(f, typeWeapon);
-			f.ignore(); getline(f, crime);
-			f.ignore(); getline(f, location);
-			f.ignore(); getline(f, baseAttack);
-			f.ignore(); getline(f, powerAttack);
-			buf = new villian(name, typeWeapon, crime, location, baseAttack, powerAttack);	
+			getline(f, typeWeapon);
+			getline(f, baseAttack);
+			getline(f, powerAttack);
+			getline(f, crime);
+			getline(f, location);
+			
+			buf = new Villain(name, typeWeapon, baseAttack, powerAttack, crime, location);
 			break;
 		case 3:
 			f.ignore(); getline(f, name);
-			f.ignore(); getline(f, app);
-			buf = new monster(name, app);
+			getline(f, app);
+			buf = new Monster(name, app);
 			break;
 		}
 		push(*buf);
 	}
 
 	f.close();
+	std::cout << "Container was extracted from file" << std::endl;
 }
 
 std::ostream& operator<<(std::ostream& out, const Keeper& keeper) {
@@ -129,4 +140,22 @@ std::ostream& operator<<(std::ostream& out, const Keeper& keeper) {
 			out << keeper.container[i]->info();
 		}
 	return out;
+}
+
+void Keeper::changeCharacter(int number) {
+	number--;
+	if (number<0 || number>=currentSize)
+		throw exception("Out of range");
+	
+		container[number]->changer();
+		std::cout << "Character was changed" << std::endl;
+
+}
+
+void Keeper::getCharInfo(int number) {
+	number--;
+	if (number<0 || number>=currentSize)
+		throw exception("Out of range");
+
+		std::cout << container[number]->info(); 
 }

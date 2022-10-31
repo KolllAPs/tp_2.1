@@ -2,16 +2,17 @@
 
 #include<string>
 
-class characters {
+class Ñharacters {
 protected:
 	std::string name;
 public:
-	characters();
-	characters(std::string);
-	characters(const characters&);
-	~characters();
+	Ñharacters();
+	Ñharacters(std::string);
+	Ñharacters(const Ñharacters&);
+	~Ñharacters();
 	void setName();
 	std::string getName();
 	virtual std::string info() = 0;
+	virtual void changer() = 0;
 };
 

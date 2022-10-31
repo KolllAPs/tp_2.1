@@ -1,26 +1,40 @@
 #include<iostream>
 #include"monster.h"
 
-monster::monster(): appearane(""){}
+Monster::Monster(): appearane(""){}
 
-monster::monster(std::string n, std::string a) : appearane(a) { this->name = n; }
+Monster::Monster(std::string n, std::string a) : appearane(a) { this->name = n; }
 
-monster::monster(const monster& _monster) {
+Monster::Monster(const Monster& _monster) {
 	this->appearane = _monster.appearane;
 }
 
-monster::~monster(){}
+Monster::~Monster(){}
 
-void monster::setAppearance() {
+Monster& Monster::operator=(const Monster& monster) {
+	this->name = monster.name;
+	this->appearane = monster.appearane;
+	return *this;
+}
+
+void Monster::setAppearance() {
+	std::cout << "Input appearance" << std::endl;
 	std::getline(std::cin, this->appearane);
 }
 
-std::string monster::getAppearance() {
+std::string Monster::getAppearance() {
 	return this->appearane;
 }
 
-std::string monster::info() {
+std::string Monster::info() {
 	std::string info;
-	info = std::to_string(id_) + "\n" + getName() + "\n" + getAppearance() + "\n";
+	info = std::to_string(charType) + "\n" + getName() + "\n" + getAppearance() + "\n";
 	return info;
+}
+
+void Monster::changer() {
+	std::cout << "Type of character you're changing: " << this->charType << std::endl;
+	std::cout << "Name of the character: " << this->name << std::endl;
+	setName();
+	setAppearance();
 }

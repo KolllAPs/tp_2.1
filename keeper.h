@@ -4,7 +4,7 @@
 class Keeper {
 	int maxSize;
 	int currentSize;
-	characters** container;
+	Ñharacters** container;
 
 public:
 	Keeper();
@@ -14,10 +14,12 @@ public:
 
 	friend std::ostream& operator<< (std::ostream& out, const Keeper& keeper);
 
-	void push(characters&);
+	void push(Ñharacters&);
 	void pop();
 	void popByNumber(int);
 
 	void saveToFile(std::string);
 	void getFromFile(std::string);
+	void changeCharacter(int);
+	void getCharInfo(int);
 };
